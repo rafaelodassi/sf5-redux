@@ -3,25 +3,28 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { teste } from '../actions/teste'
  
-class App extends Component {
-    constructor(props) {
-        super(props)    
-    }   
-    
-    componentDidMount() {    
+class App extends Component {           
+    handleClick(pathImg) {        
         const { dispatch } = this.props
-        dispatch(teste('teste'))
+        dispatch(teste(pathImg))        
     }
 
-    render() {            
+    render() {                    
         return (
-            <div></div>
+            <div>
+                <button onClick={this.handleClick.bind(this, 'img/mbison.jpg')}>M. Bison</button>
+                <button onClick={this.handleClick.bind(this, 'img/laura.png')}>Laura</button>
+
+                <div><img width="500" src={this.props.pathImg} /></div>
+            </div>                
         )
     }
 }
- 
-App.propTypes = {      
-    dispatch: PropTypes.func.isRequired
+
+const mapStateToProps = state => {       
+    return {
+        pathImg: state.teste
+    }
 }
- 
-export default connect()(App)
+
+export default connect(mapStateToProps)(App)
